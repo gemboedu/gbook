@@ -10,6 +10,10 @@ class UsersController{
     public static function getOneUserController($id){
         return UsersModel::getOneUserModel('users',$id);
     }
+
+    public static function createUserController($role,$name,$email,$password){
+        return UsersModel::createUserModel($role,$name,$email,$password);
+    }
 }
 /*
 echo '<pre>';

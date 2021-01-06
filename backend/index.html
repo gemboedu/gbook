@@ -8,11 +8,47 @@
 </head>
 <body>
 
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <div class="container">
+        <a href="#" class="brand-logo">LOGO</a>
+        <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#">item1</a></li>
+          <li><a href="#">item2</a></li>
+          <li><a href="#">item3</a></li>
+          <li><a href="#">item4</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-menu">
+          <li><a href="#">item1</a></li>
+          <li><a href="#">item2</a></li>
+          <li><a href="#">item3</a></li>
+          <li><a href="#">item4</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
     <div class="container">
         <h3 class="">Welcome to GBook Backend Page</h3>
+        <table class="bordered">
+          <thead>
+            <tr>
+              <th data-field="id">Name</th>
+              <th data-field="name">Email</th>
+              <th data-field="price">Fecha registro</th>
+            </tr>
+          </thead>
+          <tbody id="table">
+
+          </tbody>
+        </table>
     </div>
     
     <!-- Scripts -->
     <script src="views/js/materialize.min.js"></script>
+    <script src="views/js/prueba.js"></script>
 </body>
 </html>

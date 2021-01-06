@@ -1,7 +1,7 @@
 <?php
 define('ENV', 'dev');
 define('DB', array(
-    'dsn' => (ENV === 'dev') ? 'mysql:host=localhost;dbname=gbook_db' : '',
+    'dsn' => (ENV === 'dev') ? 'mysql:host=localhost;dbname=gbook' : '',
     'user' => (ENV === 'dev') ? 'root' : '',
     'pass' => (ENV === 'dev') ? '' : ''
 ));

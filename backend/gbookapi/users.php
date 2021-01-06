@@ -1,38 +1,15 @@
 <?php 
 require_once "../controllers/UsersController.php";
+require_once "verifyData.php";
 
 
 header('Content-Type: aplication/json');
 
 $id = isset($_POST['id']) ? $_POST['id'] : '';
-
-function isTheseParametersAvailable($params){
-    $available = true;
-    $missingparams = "";
-
-    foreach ($params as $param) {
-
-        if (!isset($_POST[$param]) || strlen($_POST[$param]) <= 0) {
-
-            $available = false;
-            $missingparams = $missingparams . ", ".$param;
-        }
-    }
-
-    //Cuando faltan parametros
-    if (!$available) {
-        # code...
-        $response = array();
-        $response['err'] = true;
-        $response['msg'] = 'Missing parameters: ' . substr($missingparams, 1, strlen($missingparams));
-
-        //error de visualizacion
-        echo json_encode($response); 
-
-        //detener la ejecucion
-        die();
-    }
-}
+$role = isset($_POST['role']) ? $_POST['role'] : '';
+$name = isset($_POST['name']) ? $_POST['name'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
 
 $response = array();
 
@@ -51,7 +28,7 @@ if(isset($_GET['apicall'])){
                 }
             break;
         case 'user':
-            isTheseParametersAvailable(array('id'));
+            VerifyData::isTheseParametersAvailable(array('id'));
                 $result = UsersController::getOneUserController($id);
                 if ($result != 0) {
                     $response['err'] = false;
@@ -62,16 +39,28 @@ if(isset($_GET['apicall'])){
                     $response["msg"]= 'No se encontró ningún usuario'; 
                 }
             break;
+            
+        case 'adduser':
+            VerifyData::isTheseParametersAvailable(array('role','name','email','password'));
+            $result = UsersController::createUserController($role,$name,$email,$password);
+            if ($result != -1) {
+                $response['err'] = false;
+                $response["msg"]= 'Felicidades! Ya eres parte de GBook';  
+            }else{
+                $response['err'] = true;
+                $response["msg"]= 'El email esta siendo utilizado por otro usuario';
+            }
+            break;
 
         default:
             $response['err'] = true;
-            $response["msg"]= 'Invalid End Point';
+            $response["msg"]= 'Error: Invalid End Point';
         } // end switch
 
     }else{
 
     $response['err'] = true;
-    $response['msg'] = 'Invalid API call';
+    $response['msg'] = 'Error: Invalid API call';
 }
 
 echo json_encode($response);
